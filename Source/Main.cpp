@@ -9,6 +9,143 @@
 #include <JuceHeader.h>
 #include "MainComponent.h"
 
+/* struct Bag
+{
+    Bag(int howMuchStuffToHold) {}
+};
+*/
+
+struct Person {
+    int age = 0;
+    //Bag age;
+    int heightInInches{ 0 }, distanceTraveled{ 0 };
+    float hairLength, GPA{ 0.f };
+    unsigned int SATScore{ 0 };
+    juce::String name;
+
+    // Another Constructor
+    Person(juce::String personsName) : name{personsName} 
+    {
+        DBG("Person constructor: " + name);
+    }
+
+    // Constructor
+    // Person();
+
+    // Destructor
+    ~Person() 
+    {
+        DBG("Person destructor: " + name);
+    }
+};
+
+void PersonFunction()
+{
+    Person p{ "cool" }; // When this goes out of scope, then its Destructor gets called: ~Person().
+    // After the Destructor finishes executing, p's member variables get destroyed
+}
+
+//Person::Person() : age{ 4 } {}
+
+struct IntValue
+{
+    // Constructor
+    IntValue() 
+    {
+        DBG("IntValue Constructor");
+    }
+    // Destructor
+    ~IntValue()
+    {
+        DBG("IntValue Destructor");
+    }
+
+    // Member variable
+    int value;
+};
+
+int functionA(int val)
+{
+    IntValue a;
+    a.value = 5;
+    return val * 2 + a.value;
+}
+
+void functionB()
+{
+    IntValue val;
+    val.value = functionA(3);
+    val.value *= 4;
+}
+
+void functionC()
+{
+    int i = 0;
+    while (i < 3)
+    {
+        IntValue a;
+        a.value += i;
+        i += 1; 
+    }
+    DBG(i);
+    for (int i = 0; i <= 4; i += 1)
+    {
+        IntValue a;
+        DBG(i);
+        a.value += i;
+    }
+    DBG(i);
+}
+
+void functionD()
+{
+    int i = 0;
+    int total = 10;
+    while (i < 3)
+    {
+        total += i;
+        i++;
+    }
+}
+
+void functionE()
+{
+    int a = 0;
+    a += 1;
+    {
+        a = 2;
+        int a = 4;
+        a += 1;
+        DBG(a);
+    }
+    DBG(a);
+}
+
+struct Family 
+{
+    Person mom{ "mom" };
+    Person dad{ "dad" };
+    Person child1{ "helen" };
+    Person child2{ "frank" };
+
+    // Constructor
+    Family()
+    {
+        DBG("Family constructor!");
+    }
+
+    // Destructor
+    ~Family()
+    {
+        DBG("Family destructor!");
+    }
+};
+
+void familyFunction()
+{
+    Family family;
+}
+
 //==============================================================================
 class HelloWorldApplication  : public juce::JUCEApplication
 {
@@ -24,7 +161,7 @@ public:
     void initialise (const juce::String& commandLine) override
     {
         // This method is where you should put your application's initialisation code..
-
+        familyFunction();
         mainWindow.reset (new MainWindow (getApplicationName()));
     }
 
